@@ -21,3 +21,6 @@ x()
 print("=" * 30)
 x = RunRegression(X, Y, 'DecisionTreeRegressor')
 x()
+
+print("=" * 30)
+print(Y)
