@@ -1,6 +1,5 @@
 from sklearn.datasets import make_regression
-from LinearRegression import RunLinearRegression
-from k_nearest_neighbours import RunKNearestNeightbors
+from Regressions import RunRegression
 
 X, Y = make_regression(n_samples=1000, n_features=10, n_informative=5, n_targets=2, noise=0.5, random_state=1)
 
@@ -8,9 +7,17 @@ X, Y = make_regression(n_samples=1000, n_features=10, n_informative=5, n_targets
 # dependent variables == n_targets
 
 print(X.shape, Y.shape)
-x = RunLinearRegression(X, Y)
+x = RunRegression(X, Y, 'LinearRegression')
 x()
 
 print("=" * 30)
-x = RunKNearestNeightbors(X, Y)
+x = RunRegression(X, Y, 'KNeighborsRegressor')
+x()
+
+print("=" * 30)
+x = RunRegression(X, Y, 'RandomForestRegressor')
+x()
+
+print("=" * 30)
+x = RunRegression(X, Y, 'DecisionTreeRegressor')
 x()
