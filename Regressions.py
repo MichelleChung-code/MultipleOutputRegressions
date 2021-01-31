@@ -15,7 +15,7 @@ class RunRegression:
         self.Y = Y
         self.model = dict_reg_type[model_type]()
 
-    def linear_regression_model(self):
+    def run_regression_model(self):
         # fit the model
         model = self.model.fit(self.X, self.Y)
         r_sq = model.score(self.X, self.Y)
@@ -24,7 +24,7 @@ class RunRegression:
         return r_sq, y_predict
 
     def __call__(self):
-        r_sq, y_predict = self.linear_regression_model()
+        r_sq, y_predict = self.run_regression_model()
 
         print(r_sq)
         print(y_predict)
