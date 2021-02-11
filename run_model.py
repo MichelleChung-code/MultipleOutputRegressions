@@ -7,6 +7,8 @@ X, Y = make_regression(n_samples=1000, n_features=10, n_informative=5, n_targets
 # dependent variables == n_targets
 
 print(X.shape, Y.shape)
+
+print("=" * 30)
 x = RunRegression(X, Y, 'LinearRegression')
 x()
 
