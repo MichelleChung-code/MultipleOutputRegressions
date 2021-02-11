@@ -6,6 +6,8 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import RepeatedKFold
 import numpy as np
 
+# https://machinelearningmastery.com/multi-output-regression-models-with-python/
+
 dict_reg_type = {'LinearRegression': LinearRegression,
                  'KNeighborsRegressor': KNeighborsRegressor,
                  'RandomForestRegressor': RandomForestRegressor,
