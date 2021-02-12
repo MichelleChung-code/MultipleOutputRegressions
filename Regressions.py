@@ -19,6 +19,14 @@ dict_reg_type = {'LinearRegression': LinearRegression,
 
 class RunRegression:
     def __init__(self, X, Y, model_type):
+        """
+        Initiate the RunRegression class
+
+        Args:
+            X: <np.Array> input independent variable(s) data
+            Y: <np.Array> input dependent variable(s) data
+            model_type: <str> regression type, must be one in dict_reg_type variable above
+        """
         self.X = X
         self.Y = Y
         self.model = dict_reg_type[model_type]()
@@ -78,7 +86,7 @@ class RunRegression:
     @staticmethod
     def get_params_output(model):
         """
-        Get general .get_params() results for additional model information 
+        Get general .get_params() results for additional model information
 
         Args:
             model: <sklearn.linear_model._base.{model_type}> to run general .get_params() on
