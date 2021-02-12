@@ -25,6 +25,12 @@ class RunRegression:
         self.model_type = model_type
 
     def evaluate_model(self):
+        """
+        Evaluate the regression method using 10-fold cross validation
+
+        Returns:
+            n_scores: <np.Array> absolute values of the evaluated scores for each cross validation run
+        """
         # Evaluate the multi-output regression using k-fold cross-validation
 
         # 10-fold cross-val
@@ -34,6 +40,15 @@ class RunRegression:
         return np.abs(n_scores)
 
     def run_regression_model(self):
+        """
+        Run the specified regression type and fit the data
+
+        Returns:
+            r_sq: <float> r^2 of the prediction
+            y_predict: <np.Array> predicted y-series of the regression model
+            additional_output: <dict> containing regression-type specific additional output as specified by functions in
+            dict_additional_output_type
+        """
         # fit the model
         model = self.model.fit(self.X, self.Y)
         r_sq = model.score(self.X, self.Y)
@@ -48,14 +63,38 @@ class RunRegression:
 
     @staticmethod
     def lin_reg_output(model):
+        """
+        Get the weights and y-intercept of the linear regression model
+
+        Args:
+            model: <sklearn.linear_model._base.LinearRegression> fitted linear regression model
+
+        Returns:
+            <dict> containing the resulting weights and intercept
+        """
         return {'weights': model.coef_,
                 'intercept': model.intercept_}
 
     @staticmethod
     def get_params_output(model):
+        """
+        Get general .get_params() results for additional model information 
+
+        Args:
+            model: <sklearn.linear_model._base.{model_type}> to run general .get_params() on
+
+        Returns:
+            <dict> containing the results of the .get_params() call
+        """
         return {'params': model.get_params()}
 
     def plot_model(self, y_predict):
+        """
+        Product plot comparing the actual and predicted values to better see how closely the data was fitted
+
+        Args:
+            y_predict: <np.Array> predicted y-series of the regression model
+        """
         row, num_outputs = y_predict.shape
         x_ax = range(len(self.X))
 
@@ -68,6 +107,7 @@ class RunRegression:
         plt.show()
 
     def __call__(self):
+        """ Run the regression class """
         n_scores = self.evaluate_model()
         r_sq, y_predict, additional_output = self.run_regression_model()
         print(self.model_type)
