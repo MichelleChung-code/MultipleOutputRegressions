@@ -23,7 +23,7 @@ dict_reg_type = {'LinearRegression': LinearRegression,
 
 
 class RunRegression:
-    def __init__(self, X, Y, model_type, plot_individual_bool=False):
+    def __init__(self, X, Y, model_type, plot_individual_bool=False, plot_summary_one_bool=False):
         """
         Initiate the RunRegression class
 
@@ -31,13 +31,16 @@ class RunRegression:
             X: <np.Array> input independent variable(s) data
             Y: <np.Array> input dependent variable(s) data
             model_type: <str> regression type, must be one in dict_reg_type variable above
-            plot_individual_bool: <bool> whether to plot the individual x vs y series or just plot all on one graph
+            plot_individual_bool: <bool> whether to also plot the individual x vs y series
+            plot_summary_one_bool: <bool> whether to plot the summary comparison chart on one graph or separate the
+            different y-series into their own charts
         """
         self.X = X
         self.Y = Y
         self.model = dict_reg_type[model_type]()
         self.model_type = model_type
         self.plot_individual_bool = plot_individual_bool
+        self.plot_summary_one_bool = plot_summary_one_bool
 
     def evaluate_model(self):
         """
@@ -109,9 +112,10 @@ class RunRegression:
         """
         return {'params': model.get_params()}
 
-    def plot_model(self, y_predict):
+    def plot_model(self, y_predict, one_plot=True):
         """
         Product plot comparing the actual and predicted values to better see how closely the data was fitted
+        Shows how closely the y data follows, per data point
 
         Args:
             y_predict: <np.Array> predicted y-series of the regression model
@@ -120,15 +124,25 @@ class RunRegression:
         x_ax = range(len(self.X))
 
         for i in range(num_outputs):
+            if not one_plot:
+                if not isinstance(self.Y, pd.DataFrame):
+                    raise NotImplemented  # todo implement this case
+
             if isinstance(self.Y, pd.DataFrame):
                 plt.plot(x_ax, np.array(self.Y.iloc[:, i]), label='y{}_actual'.format(i + 1))
             else:
                 plt.plot(x_ax, self.Y[:, i], label='y{}_actual'.format(i + 1))
             plt.plot(x_ax, y_predict[:, i], label='y{}_pred'.format(i + 1))
 
-        plt.title(self.model_type)
-        plt.legend()
-        plt.show()
+            if not one_plot:
+                plt.title('{}: {}'.format(self.model_type, self.Y.columns[i]))
+                plt.legend()
+                plt.show()
+
+        if one_plot:
+            plt.title(self.model_type)
+            plt.legend()
+            plt.show()
 
     def plot_model_individual_series(self, y_predict):
         row, num_outputs = y_predict.shape
@@ -164,5 +178,5 @@ class RunRegression:
         pprint(additional_output)
         if self.plot_individual_bool:
             self.plot_model_individual_series(y_predict)
-        else:
-            self.plot_model(y_predict)
+
+        self.plot_model(y_predict, self.plot_summary_one_bool)
