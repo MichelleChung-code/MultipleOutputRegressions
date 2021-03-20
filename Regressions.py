@@ -137,6 +137,8 @@ class RunRegression:
             if not one_plot:
                 plt.title('{}: {}'.format(self.model_type, self.Y.columns[i]))
                 plt.legend()
+                plt.xlabel('datapoint_number')
+                plt.ylabel(self.Y.columns[i])
                 plt.show()
 
         if one_plot:
