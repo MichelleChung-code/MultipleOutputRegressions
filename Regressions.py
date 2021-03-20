@@ -11,6 +11,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
 
+__author__ = 'Michelle Aria Chung'
+
 # https://machinelearningmastery.com/multi-output-regression-models-with-python/
 # todo add the chained output
 
@@ -29,7 +31,7 @@ class RunRegression:
             X: <np.Array> input independent variable(s) data
             Y: <np.Array> input dependent variable(s) data
             model_type: <str> regression type, must be one in dict_reg_type variable above
-            plot_individual_bool: <bool> whether to plot the individual series
+            plot_individual_bool: <bool> whether to plot the individual x vs y series or just plot all on one graph
         """
         self.X = X
         self.Y = Y
@@ -132,7 +134,7 @@ class RunRegression:
         row, num_outputs = y_predict.shape
         num_inputs = len(self.X.columns)
 
-        if not isinstance(self.Y, pd.DataFrame): # todo allow for numpy array inputs as well
+        if not isinstance(self.Y, pd.DataFrame):  # todo allow for numpy array inputs as well
             raise NotImplemented
 
         for i in range(num_outputs):
