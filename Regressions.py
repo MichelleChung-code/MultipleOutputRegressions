@@ -21,7 +21,7 @@ dict_reg_type = {'LinearRegression': LinearRegression,
 
 
 class RunRegression:
-    def __init__(self, X, Y, model_type):
+    def __init__(self, X, Y, model_type, plot_individual_bool=False):
         """
         Initiate the RunRegression class
 
@@ -29,11 +29,13 @@ class RunRegression:
             X: <np.Array> input independent variable(s) data
             Y: <np.Array> input dependent variable(s) data
             model_type: <str> regression type, must be one in dict_reg_type variable above
+            plot_individual_bool: <bool> whether to plot the individual series
         """
         self.X = X
         self.Y = Y
         self.model = dict_reg_type[model_type]()
         self.model_type = model_type
+        self.plot_individual_bool = plot_individual_bool
 
     def evaluate_model(self):
         """
@@ -126,6 +128,24 @@ class RunRegression:
         plt.legend()
         plt.show()
 
+    def plot_model_individual_series(self, y_predict):
+        row, num_outputs = y_predict.shape
+        num_inputs = len(self.X.columns)
+
+        if not isinstance(self.Y, pd.DataFrame): # todo allow for numpy array inputs as well
+            raise NotImplemented
+
+        for i in range(num_outputs):
+            for j in range(num_inputs):
+                plt.plot(self.X.iloc[:, j], self.Y.iloc[:, i], label='y_actual')
+                plt.plot(self.X.iloc[:, j], y_predict[:, i], label='y_pred')
+                plt.title('{type}: {y_name} vs. {x_name}'.format(type=self.model_type, y_name=self.Y.columns[i],
+                                                                 x_name=self.X.columns[j]))
+                plt.xlabel(self.X.columns[j])
+                plt.ylabel(self.Y.columns[i])
+                plt.legend()
+                plt.show()
+
     def __call__(self):
         """ Run the regression class """
         n_scores = self.evaluate_model()
@@ -140,5 +160,7 @@ class RunRegression:
         # print(json.dumps(additional_output, indent=4, sort_keys=True))
 
         pprint(additional_output)
-
-        self.plot_model(y_predict)
+        if self.plot_individual_bool:
+            self.plot_model_individual_series(y_predict)
+        else:
+            self.plot_model(y_predict)
