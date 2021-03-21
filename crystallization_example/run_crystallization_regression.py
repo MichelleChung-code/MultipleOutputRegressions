@@ -38,6 +38,7 @@ class CrystallizationRegression:
         # crystallization_linear_direct = RunRegression(self.X, self.Y, 'DirectMultiOutput_Linear', plot_individual_bool=True)
         # crystallization_linear_direct()
 
+        # might not use this one in the final results 
         crystallization_linear_chained = RunRegression(self.X, self.Y, 'ChainedMultiOutput_Linear',
                                                        plot_individual_bool=True)
         crystallization_linear_chained()
