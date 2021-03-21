@@ -152,6 +152,16 @@ class RunRegression:
 
         row, num_outputs = self.model.predict(new_X_df).shape
         cur_path = str(Path(__file__).parents[0])
+        max_values = np.argmax(predicted_y, axis=0)
+        optimal_vals_dict = {}
+        for i in range(len(max_values)):
+            optimal_vals_dict[self.Y.columns[i]] = {
+                'conditions {}'.format(list(new_X_df.columns)): new_X_df.iloc[max_values[i]].to_list(),
+                'value': predicted_y[max_values[i], i]}
+
+        print('OPTIMAL CONDITIONS: {}'.format(self.model_type))
+        pprint(optimal_vals_dict)
+
         for i in range(num_outputs):
             fig = plt.figure()
             ax = plt.axes(projection='3d')
