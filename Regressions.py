@@ -10,16 +10,20 @@ from pprint import pprint
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
+from sklearn.svm import LinearSVR
+from sklearn.multioutput import MultiOutputRegressor, RegressorChain
 
 __author__ = 'Michelle Aria Chung'
 
-# https://machinelearningmastery.com/multi-output-regression-models-with-python/
-# todo add the chained output
+DirectMultiOutput = 'DirectMultiOutput'
+ChainedMultiOutput = 'ChainedMultiOutput'
 
 dict_reg_type = {'LinearRegression': LinearRegression,
                  'KNeighborsRegressor': KNeighborsRegressor,
                  'RandomForestRegressor': RandomForestRegressor,
-                 'DecisionTreeRegressor': DecisionTreeRegressor}
+                 'DecisionTreeRegressor': DecisionTreeRegressor,
+                 DirectMultiOutput + '_Linear': LinearSVR,
+                 ChainedMultiOutput + '_Linear': LinearSVR}
 
 
 class RunRegression:
@@ -41,6 +45,12 @@ class RunRegression:
         self.model_type = model_type
         self.plot_individual_bool = plot_individual_bool
         self.plot_summary_one_bool = plot_summary_one_bool
+
+        # check whether the type involves a multi-output wrapper
+        multi_output_wrapper = model_type.split('_')[0]
+        if multi_output_wrapper in [DirectMultiOutput, ChainedMultiOutput]:
+            self.model = MultiOutputRegressor(
+                self.model) if multi_output_wrapper == DirectMultiOutput else RegressorChain(self.model)
 
     def evaluate_model(self):
         """
@@ -83,7 +93,13 @@ class RunRegression:
             r_sq_indv_ls = [r2_score(self.Y.iloc[:, i], y_predict[:, i]) for i in range(len(self.Y.columns))]
         else:
             r_sq_indv_ls = [r2_score(self.Y[:, i], y_predict[:, i]) for i in range(len(self.Y.columns))]
-        return r_sq, r_sq_indv_ls, y_predict, dict_additional_output_type[self.model_type](model)
+
+        additional_output = dict_additional_output_type.get(self.model_type, False)
+
+        if additional_output:
+            additional_output = additional_output(model)
+
+        return r_sq, r_sq_indv_ls, y_predict, additional_output
 
     @staticmethod
     def lin_reg_output(model):
