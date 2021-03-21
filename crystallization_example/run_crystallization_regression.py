@@ -21,13 +21,14 @@ class CrystallizationRegression:
         self.X = self.input_data[[AGITATOR_SPEED, SEED_CRYSTAL_MASS]]
         self.Y = self.input_data[[YIELD, GROWTH_RATE, MEAN_DIAMETER, CRYSTALLIZER_POWER]]
 
-    def plot_original_data(self):
-        # todo generate different x vs y plots, while keeping other x vars constant
-        pass
-
     def __call__(self):
+        lb_ls = [214, 0]
+        ub_ls = [665, 2]
+        step_size_ls = [10, 0.2]
+
         crystallization_linear_regression = RunRegression(self.X, self.Y, 'LinearRegression', plot_individual_bool=True)
         crystallization_linear_regression()
+        crystallization_linear_regression.plot_optimized_maximum(lb_ls, ub_ls, step_size_ls)
 
         crystallization_random_forest_regression = RunRegression(self.X, self.Y, 'RandomForestRegressor',
                                                                  plot_individual_bool=True)

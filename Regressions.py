@@ -14,6 +14,9 @@ from sklearn.svm import LinearSVR
 from sklearn.multioutput import MultiOutputRegressor, RegressorChain
 import warnings
 from sklearn.exceptions import ConvergenceWarning
+import itertools
+import os
+from pathlib import Path
 
 __author__ = 'Michelle Aria Chung'
 
@@ -132,6 +135,34 @@ class RunRegression:
             <dict> containing the results of the .get_params() call
         """
         return {'params': model.get_params()}
+
+    def plot_optimized_maximum(self, lb_ls, ub_ls, step_size_ls):
+        assert len(lb_ls) == len(ub_ls)  # lower and upper bound lists must have the same number of elements
+        if not isinstance(self.Y, pd.DataFrame):
+            raise NotImplemented  # todo implement this piece
+
+        values_ls = []
+        # get combinations of possible settings
+        for i in range(len(lb_ls)):
+            values_ls.append([*np.arange(lb_ls[i], ub_ls[i], step_size_ls[i])])
+
+        combinations_ls = list(itertools.product(*values_ls))
+        new_X_df = pd.DataFrame(combinations_ls, columns=self.X.columns)
+        predicted_y = self.model.predict(new_X_df)
+
+        row, num_outputs = self.model.predict(new_X_df).shape
+        cur_path = str(Path(__file__).parents[0])
+        for i in range(num_outputs):
+            fig = plt.figure()
+            ax = plt.axes(projection='3d')
+            ax.scatter3D(new_X_df.iloc[:, 0], new_X_df.iloc[:, 1], predicted_y[:, 1], c=predicted_y[:, 1])
+            ax.set_xlabel(self.X.columns[0])
+            ax.set_ylabel(self.X.columns[1])
+            ax.set_zlabel(self.Y.columns[i])
+            ax.set_title(self.Y.columns[i])
+            fig.set_size_inches(8, 8)
+            plt.savefig(os.path.join(cur_path, 'crystallization_example/results/{}_{}.png'.format(self.model_type,
+                                                                                                  self.Y.columns[i])))
 
     def plot_model(self, y_predict, one_plot=True):
         """
