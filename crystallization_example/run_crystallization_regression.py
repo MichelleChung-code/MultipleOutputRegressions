@@ -33,6 +33,7 @@ class CrystallizationRegression:
         crystallization_random_forest_regression = RunRegression(self.X, self.Y, 'RandomForestRegressor',
                                                                  plot_individual_bool=True)
         crystallization_random_forest_regression()
+        crystallization_random_forest_regression.plot_optimized_maximum(lb_ls, ub_ls, step_size_ls)
 
         # crystallization_linear_direct = RunRegression(self.X, self.Y, 'DirectMultiOutput_Linear', plot_individual_bool=True)
         # crystallization_linear_direct()
@@ -40,6 +41,7 @@ class CrystallizationRegression:
         crystallization_linear_chained = RunRegression(self.X, self.Y, 'ChainedMultiOutput_Linear',
                                                        plot_individual_bool=True)
         crystallization_linear_chained()
+        crystallization_linear_chained.plot_optimized_maximum(lb_ls, ub_ls, step_size_ls)
 
 
 if __name__ == '__main__':
