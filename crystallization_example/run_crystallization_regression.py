@@ -33,8 +33,13 @@ class CrystallizationRegression:
                                                                  plot_individual_bool=True)
         crystallization_random_forest_regression()
 
-        # crystallization_linear_direct = RunRegression(self.X, self.Y, 'ChainedMultiOutput_Linear', plot_individual_bool=True)
+        # crystallization_linear_direct = RunRegression(self.X, self.Y, 'DirectMultiOutput_Linear', plot_individual_bool=True)
         # crystallization_linear_direct()
+
+        crystallization_linear_chained = RunRegression(self.X, self.Y, 'ChainedMultiOutput_Linear',
+                                                       plot_individual_bool=True)
+        crystallization_linear_chained()
+
 
 if __name__ == '__main__':
     input_data_path = 'crystallization_input_data.csv'
