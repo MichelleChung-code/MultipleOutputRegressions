@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
 from sklearn.svm import LinearSVR
 from sklearn.multioutput import MultiOutputRegressor, RegressorChain
+import warnings
+from sklearn.exceptions import ConvergenceWarning
 
 __author__ = 'Michelle Aria Chung'
 
@@ -25,6 +27,8 @@ dict_reg_type = {'LinearRegression': LinearRegression,
                  'DecisionTreeRegressor': DecisionTreeRegressor,
                  DirectMultiOutput + '_Linear': LinearSVR,
                  ChainedMultiOutput + '_Linear': LinearSVR}
+
+warnings.filterwarnings('ignore', category=ConvergenceWarning)
 
 
 class RunRegression:
