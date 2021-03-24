@@ -29,7 +29,7 @@ dict_reg_type = {'LinearRegression': LinearRegression,
                  'RandomForestRegressor': RandomForestRegressor,
                  'DecisionTreeRegressor': DecisionTreeRegressor,
                  DirectMultiOutput + '_Linear': LinearSVR,
-                 ChainedMultiOutput + '_Linear': LinearSVR}
+                 ChainedMultiOutput + '_Linear': LinearRegression}
 
 warnings.filterwarnings('ignore', category=ConvergenceWarning)
 
