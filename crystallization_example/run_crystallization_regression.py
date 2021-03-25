@@ -37,8 +37,8 @@ class CrystallizationRegression:
         self.Y = self.input_data[[YIELD, GROWTH_RATE, MEAN_DIAMETER]]
 
     def __call__(self):
-        lb_ls = [210, 0] # min is actually 214
-        ub_ls = [670, 2] # so that max is 665
+        lb_ls = [210, 0] # min is actually 214, 0
+        ub_ls = [670, 2.2] # so that max is 665, 2
         step_size_ls = [5, 0.2]
 
         # traditional way with interactions

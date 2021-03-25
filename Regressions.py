@@ -160,6 +160,12 @@ class RunRegression:
                 'value': predicted_y[max_values[i], i]}
 
         print('OPTIMAL CONDITIONS: {}'.format(self.model_type))
+        full_runs_df = pd.DataFrame(predicted_y, columns=self.Y.columns)
+        full_runs_df = pd.concat([new_X_df, full_runs_df], axis=1)
+
+        full_runs_df.to_csv(
+            os.path.join(cur_path, 'crystallization_example/results/{}_full_runs.csv'.format(self.model_type)))
+
         pprint(optimal_vals_dict)
 
         for i in range(num_outputs):

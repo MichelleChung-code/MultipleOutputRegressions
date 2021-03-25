@@ -27,4 +27,3 @@ x()
 
 print("=" * 30)
 
-# todo find optimal conditions within a range for maximizing the output variables
