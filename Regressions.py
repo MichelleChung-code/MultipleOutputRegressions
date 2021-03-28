@@ -176,7 +176,7 @@ class RunRegression:
             ax.set_xlabel(self.X.columns[0])
             ax.set_ylabel(self.X.columns[1])
             ax.set_zlabel(self.Y.columns[i])
-            ax.set_title(self.Y.columns[i])
+            ax.set_title('{}: {}'.format(self.model_type, self.Y.columns[i]))
             fig.set_size_inches(12, 8)
             fig.colorbar(p, ax=ax)
             plt.savefig(os.path.join(cur_path, 'crystallization_example/results/{}_{}.png'.format(self.model_type,
