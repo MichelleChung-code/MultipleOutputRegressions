@@ -3,7 +3,7 @@ from Regressions import RunRegression
 import statsmodels.api as sm
 from sklearn.preprocessing import PolynomialFeatures
 from sympy import *
-from gplearn.genetic import SymbolicRegressor
+# from gplearn.genetic import SymbolicRegressor
 
 __author__ = 'Michelle Aria Chung'
 
