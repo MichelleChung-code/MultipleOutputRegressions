@@ -171,12 +171,14 @@ class RunRegression:
         for i in range(num_outputs):
             fig = plt.figure()
             ax = plt.axes(projection='3d')
-            ax.scatter3D(new_X_df.iloc[:, 0], new_X_df.iloc[:, 1], predicted_y[:, 1], c=predicted_y[:, 1])
+            p = ax.scatter3D(new_X_df.iloc[:, 0], new_X_df.iloc[:, 1], predicted_y[:, 1], c=predicted_y[:, 1],
+                             cmap=plt.get_cmap('BuPu'))
             ax.set_xlabel(self.X.columns[0])
             ax.set_ylabel(self.X.columns[1])
             ax.set_zlabel(self.Y.columns[i])
             ax.set_title(self.Y.columns[i])
-            fig.set_size_inches(8, 8)
+            fig.set_size_inches(12, 8)
+            fig.colorbar(p, ax=ax)
             plt.savefig(os.path.join(cur_path, 'crystallization_example/results/{}_{}.png'.format(self.model_type,
                                                                                                   self.Y.columns[i])))
 
