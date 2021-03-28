@@ -37,27 +37,29 @@ class CrystallizationRegression:
         self.Y = self.input_data[[YIELD, GROWTH_RATE, MEAN_DIAMETER]]
 
     def __call__(self):
-        lb_ls = [210, 0] # min is actually 214, 0
-        ub_ls = [670, 2.2] # so that max is 665, 2
+        lb_ls = [210, 0]  # min is actually 214, 0
+        ub_ls = [670, 2.2]  # so that max is 665, 2
         step_size_ls = [5, 0.2]
 
         # traditional way with interactions
         # doing the y values individually
+        print("\n", '#' * 40, 'MULTIPLE LINEAR WITH INTERACTION TERM', '#' * 40, "\n")
+
         self.multiple_linear_regression_interactions()
 
-        print('=' * 50)
-
-        crystallization_random_forest_regression = RunRegression(self.X, self.Y, 'RandomForestRegressor',
-                                                                 plot_individual_bool=True)
-        crystallization_random_forest_regression()
-        crystallization_random_forest_regression.plot_optimized_maximum(lb_ls, ub_ls, step_size_ls)
-
-        print('=' * 50)
+        print("\n", '#' * 40, 'LINEAR CHAINED', '#' * 40, "\n")
 
         crystallization_linear_chained = RunRegression(self.X, self.Y, 'ChainedMultiOutput_Linear',
                                                        plot_individual_bool=True)
         crystallization_linear_chained()
         crystallization_linear_chained.plot_optimized_maximum(lb_ls, ub_ls, step_size_ls)
+
+        print("\n", '#' * 40, 'RANDOM FOREST', '#' * 40, "\n")
+
+        crystallization_random_forest_regression = RunRegression(self.X, self.Y, 'RandomForestRegressor',
+                                                                 plot_individual_bool=True)
+        crystallization_random_forest_regression()
+        crystallization_random_forest_regression.plot_optimized_maximum(lb_ls, ub_ls, step_size_ls)
 
     def multiple_linear_regression_interactions(self):
         # todo move to general Regressions class after this is made more scalable.
