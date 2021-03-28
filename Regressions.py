@@ -245,7 +245,10 @@ class RunRegression:
         # the below line only works for primative types
         # print(json.dumps(additional_output, indent=4, sort_keys=True))
 
-        pprint(additional_output)
+        if additional_output:
+            print('Additional Output:')
+            pprint(additional_output)
+
         if self.plot_individual_bool:
             self.plot_model_individual_series(y_predict)
 
