@@ -3,6 +3,8 @@ from Regressions import RunRegression
 import statsmodels.api as sm
 from sklearn.preprocessing import PolynomialFeatures
 from sympy import *
+import matplotlib.pyplot as plt
+
 # from gplearn.genetic import SymbolicRegressor
 
 __author__ = 'Michelle Aria Chung'
@@ -82,6 +84,14 @@ class CrystallizationRegression:
 
             print(new_result.summary())
 
+            # plot the new graphs
+            new_Y = new_result.predict(X_final)
+            CrystallizationRegression.plot_model_individual_series(model_type='LinearRegression_WithInteractions',
+                                                                   X_original=self.X, Y_original=self.Y[y_col],
+                                                                   y_predict=new_Y)
+
+            print('test')
+
             # genetic programming to get the analytical equation
             # function_set = ['add', 'sub', 'mul', 'div', 'cos', 'sin', 'neg', 'inv']
             # X.drop('const', axis=1, inplace=True)
@@ -98,6 +108,30 @@ class CrystallizationRegression:
             # print('R2: ', est_gp.score(X, self.Y[y_col]))
             # sympy_eqn = sympify(str(est_gp._program), locals=sympy_str_converter)
             # print(sympy_eqn)
+
+    @staticmethod
+    def plot_model_individual_series(model_type, X_original, Y_original, y_predict):
+        # todo this is very similar to the Regression class version of plot_model, should make the Regression class one a static
+        # method and then just use from there
+        if isinstance(Y_original, pd.Series):
+            Y_original = Y_original.to_frame()
+            y_predict = y_predict.to_frame()
+
+        num_outputs = len(y_predict.columns)
+        x_ax = range(len(X_original))
+
+        if not isinstance(Y_original, (pd.DataFrame, pd.Series)):  # todo allow for numpy array inputs as well
+            raise NotImplemented
+
+        for i in range(num_outputs):
+            plt.plot(x_ax, Y_original.iloc[:, i], label='y_actual')
+            plt.plot(x_ax, y_predict.iloc[:, i],
+                     label='y_pred')  # y_predict is originally a series object
+            plt.title('{type}: {y_name}'.format(type=model_type, y_name=Y_original.columns[i]))
+            plt.xlabel('datapoint_number')
+            plt.ylabel(Y_original.columns[i])
+            plt.legend()
+            plt.show()
 
 
 if __name__ == '__main__':

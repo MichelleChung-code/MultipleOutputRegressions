@@ -199,10 +199,10 @@ class RunRegression:
                     raise NotImplemented  # todo implement this case
 
             if isinstance(self.Y, pd.DataFrame):
-                plt.plot(x_ax, np.array(self.Y.iloc[:, i]), label='y{}_actual'.format(i + 1))
+                plt.plot(x_ax, np.array(self.Y.iloc[:, i]), label='y_actual')
             else:
-                plt.plot(x_ax, self.Y[:, i], label='y{}_actual'.format(i + 1))
-            plt.plot(x_ax, y_predict[:, i], label='y{}_pred'.format(i + 1))
+                plt.plot(x_ax, self.Y[:, i], label='y_actual')
+            plt.plot(x_ax, y_predict[:, i], label='y_pred')
 
             if not one_plot:
                 plt.title('{}: {}'.format(self.model_type, self.Y.columns[i]))
