@@ -35,12 +35,21 @@ sympy_str_converter = {
 
 class CrystallizationRegression:
     def __init__(self, input_data_path):
+        """
+        Class to run specific regression for the crystallization experiment
+
+        Args:
+            input_data_path: <str> path to the input data csv
+        """
         self.input_data = pd.read_csv(input_data_path)
 
         self.X = self.input_data[[AGITATOR_SPEED, SEED_CRYSTAL_MASS]]
         self.Y = self.input_data[[YIELD, GROWTH_RATE, MEAN_DIAMETER]]
 
     def __call__(self):
+        """
+        Run the crystallization regressions
+        """
         lb_ls = [210, 0]  # min is actually 214, 0
         ub_ls = [670, 2.2]  # so that max is 665, 2
         step_size_ls = [5, 0.2]
@@ -66,6 +75,9 @@ class CrystallizationRegression:
         crystallization_random_forest_regression.plot_optimized_maximum(lb_ls, ub_ls, step_size_ls)
 
     def multiple_linear_regression_interactions(self):
+        """
+        Run the linear regressions using interaction terms
+        """
         # todo move to general Regressions class after this is made more scalable.
         # Source: https://towardsdatascience.com/multiple-linear-regression-with-interactions-unveiled-by-genetic-programming-4cc325ac1b65
 
@@ -113,6 +125,15 @@ class CrystallizationRegression:
 
     @staticmethod
     def plot_model_individual_series(model_type, X_original, Y_original, y_predict):
+        """
+        Plot individual charts to depict how closely the fitted y-series follows the actual data.
+
+        Args:
+            model_type: <str> name of regression model type being run
+            X_original: <pd.DataFrame> original x-series
+            Y_original: <pd.Series> original y-series
+            y_predict: <pd.Series> model fitted y-series
+        """
         # todo this is very similar to the Regression class version of plot_model, should make the Regression class one a static
         # method and then just use from there
         if isinstance(Y_original, pd.Series):
