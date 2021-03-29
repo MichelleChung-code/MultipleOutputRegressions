@@ -6,6 +6,7 @@ from sympy import *
 import matplotlib.pyplot as plt
 from pathlib import Path
 import os
+import sys
 
 # from gplearn.genetic import SymbolicRegressor
 
@@ -162,6 +163,14 @@ class CrystallizationRegression:
 
 
 if __name__ == '__main__':
+    # write console output to text file
+
+    cur_path = str(Path(__file__).parents[0])
+    console_out_path = os.path.join(cur_path, 'results/crystallization_run_console_output.txt')
+    sys.stdout = open(console_out_path, 'w')
+
     input_data_path = 'crystallization_input_data.csv'
     x = CrystallizationRegression(input_data_path)
     x()
+
+    sys.stdout.close()

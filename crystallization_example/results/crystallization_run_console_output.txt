@@ -1,0 +1,164 @@
+
+ ######################################## MULTIPLE LINEAR WITH INTERACTION TERM ######################################## 
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  YIELD   R-squared:                       0.242
+Model:                            OLS   Adj. R-squared:                 -0.213
+Method:                 Least Squares   F-statistic:                    0.5318
+Date:                Sun, 28 Mar 2021   Prob (F-statistic):              0.680
+Time:                        22:56:42   Log-Likelihood:                -43.953
+No. Observations:                   9   AIC:                             95.91
+Df Residuals:                       5   BIC:                             96.70
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+const               144.0489     59.329      2.428      0.060      -8.461     296.558
+AGITATOR_SPEED        0.1274      0.123      1.039      0.346      -0.188       0.442
+SEED_CRYSTAL_MASS    31.2298     45.956      0.680      0.527     -86.904     149.363
+x1 x2                -0.0951      0.095     -1.002      0.363      -0.339       0.149
+==============================================================================
+Omnibus:                        1.535   Durbin-Watson:                   2.057
+Prob(Omnibus):                  0.464   Jarque-Bera (JB):                0.454
+Skew:                          -0.547   Prob(JB):                        0.797
+Kurtosis:                       2.882   Cond. No.                     3.72e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.72e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+test
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            GROWTH_RATE   R-squared:                       0.519
+Model:                            OLS   Adj. R-squared:                  0.230
+Method:                 Least Squares   F-statistic:                     1.796
+Date:                Sun, 28 Mar 2021   Prob (F-statistic):              0.264
+Time:                        22:56:42   Log-Likelihood:                 154.70
+No. Observations:                   9   AIC:                            -301.4
+Df Residuals:                       5   BIC:                            -300.6
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+const              6.889e-08   1.54e-08      4.475      0.007    2.93e-08    1.08e-07
+AGITATOR_SPEED      2.11e-11   3.18e-11      0.663      0.536   -6.06e-11    1.03e-10
+SEED_CRYSTAL_MASS -9.638e-09   1.19e-08     -0.808      0.456   -4.03e-08     2.1e-08
+x1 x2              6.971e-13   2.46e-11      0.028      0.979   -6.26e-11     6.4e-11
+==============================================================================
+Omnibus:                        2.888   Durbin-Watson:                   1.556
+Prob(Omnibus):                  0.236   Jarque-Bera (JB):                1.230
+Skew:                          -0.901   Prob(JB):                        0.541
+Kurtosis:                       2.822   Cond. No.                     3.72e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.72e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+test
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          MEAN_DIAMETER   R-squared:                       0.751
+Model:                            OLS   Adj. R-squared:                  0.602
+Method:                 Least Squares   F-statistic:                     5.037
+Date:                Sun, 28 Mar 2021   Prob (F-statistic):             0.0569
+Time:                        22:56:42   Log-Likelihood:                -35.551
+No. Observations:                   9   AIC:                             79.10
+Df Residuals:                       5   BIC:                             79.89
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+const               223.5881     23.325      9.586      0.000     163.629     283.547
+AGITATOR_SPEED        0.0290      0.048      0.602      0.573      -0.095       0.153
+SEED_CRYSTAL_MASS   -39.6561     18.068     -2.195      0.080     -86.100       6.788
+x1 x2                 0.0669      0.037      1.793      0.133      -0.029       0.163
+==============================================================================
+Omnibus:                        0.440   Durbin-Watson:                   2.146
+Prob(Omnibus):                  0.802   Jarque-Bera (JB):                0.463
+Skew:                           0.032   Prob(JB):                        0.794
+Kurtosis:                       1.891   Cond. No.                     3.72e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.72e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+test
+
+ ######################################## LINEAR CHAINED ######################################## 
+
+ChainedMultiOutput_Linear
+Mean Absolute Error, mean (std): 21.612 (10.580)
+r^2: 0.400
+r^2 individual: [0.08978305001339482, 0.5186127212149321, 0.5915330065202268]
+Predicted y-series: 
+[[1.93516718e+02 7.32453702e-08 2.14161374e+02]
+ [1.82188768e+02 6.39197536e-08 2.04455818e+02]
+ [1.70860818e+02 5.45941369e-08 1.94750263e+02]
+ [2.01589149e+02 7.86935535e-08 2.38137753e+02]
+ [1.90261199e+02 6.93679369e-08 2.28432198e+02]
+ [1.78933249e+02 6.00423202e-08 2.18726642e+02]
+ [2.08079383e+02 8.30738929e-08 2.57414762e+02]
+ [1.96751433e+02 7.37482762e-08 2.47709207e+02]
+ [1.85423483e+02 6.44226596e-08 2.38003651e+02]]
+OPTIMAL CONDITIONS: ChainedMultiOutput_Linear
+{'GROWTH_RATE': {"conditions ['AGITATOR_SPEED', 'SEED_CRYSTAL_MASS']": [665.0,
+                                                                        0.0],
+                 'value': 8.30738929058032e-08},
+ 'MEAN_DIAMETER': {"conditions ['AGITATOR_SPEED', 'SEED_CRYSTAL_MASS']": [665.0,
+                                                                          0.0],
+                   'value': 257.4147621508856},
+ 'YIELD': {"conditions ['AGITATOR_SPEED', 'SEED_CRYSTAL_MASS']": [665.0, 0.0],
+           'value': 208.0793829657223}}
+
+ ######################################## RANDOM FOREST ######################################## 
+
+RandomForestRegressor
+Mean Absolute Error, mean (std): 23.303 (8.299)
+r^2: 0.839
+r^2 individual: [0.7153222305996483, 0.8947321075297278, 0.9057730790822474]
+Predicted y-series: 
+[[1.85664059e+02 6.98423460e-08 2.21918170e+02]
+ [1.97957858e+02 7.06195810e-08 2.19161210e+02]
+ [1.84435840e+02 5.86718240e-08 1.89724630e+02]
+ [1.76883032e+02 7.74529260e-08 2.36698480e+02]
+ [1.49165628e+02 7.01080910e-08 2.17340010e+02]
+ [1.81841510e+02 5.14331180e-08 2.11983297e+02]
+ [2.33369753e+02 7.77765690e-08 2.42872660e+02]
+ [2.03147318e+02 8.05696110e-08 2.51762160e+02]
+ [1.81282907e+02 7.15164550e-08 2.52785790e+02]]
+Additional Output:
+{'params': {'bootstrap': True,
+            'ccp_alpha': 0.0,
+            'criterion': 'mse',
+            'max_depth': None,
+            'max_features': 'auto',
+            'max_leaf_nodes': None,
+            'max_samples': None,
+            'min_impurity_decrease': 0.0,
+            'min_impurity_split': None,
+            'min_samples_leaf': 1,
+            'min_samples_split': 2,
+            'min_weight_fraction_leaf': 0.0,
+            'n_estimators': 100,
+            'n_jobs': None,
+            'oob_score': False,
+            'random_state': None,
+            'verbose': 0,
+            'warm_start': False}}
+OPTIMAL CONDITIONS: RandomForestRegressor
+{'GROWTH_RATE': {"conditions ['AGITATOR_SPEED', 'SEED_CRYSTAL_MASS']": [565.0,
+                                                                        0.6000000000000001],
+                 'value': 8.056961100000006e-08},
+ 'MEAN_DIAMETER': {"conditions ['AGITATOR_SPEED', 'SEED_CRYSTAL_MASS']": [565.0,
+                                                                          1.2000000000000002],
+                   'value': 253.2247066709998},
+ 'YIELD': {"conditions ['AGITATOR_SPEED', 'SEED_CRYSTAL_MASS']": [565.0, 0.0],
+           'value': 233.36975299999983}}
