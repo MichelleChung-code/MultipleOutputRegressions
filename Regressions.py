@@ -219,7 +219,7 @@ class RunRegression:
             if not one_plot:
                 plt.title('{}: {}'.format(self.model_type, self.Y.columns[i]))
                 plt.legend()
-                plt.xlabel('datapoint_number')
+                plt.xlabel('DATAPOINT_NUMBER')
                 plt.ylabel(self.Y.columns[i])
                 plt.savefig(os.path.join(cur_path, 'crystallization_example/results/{}_{}_follow_fit.png'.format(self.model_type,
                                                                                                       self.Y.columns[

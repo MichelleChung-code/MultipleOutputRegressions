@@ -128,7 +128,7 @@ class CrystallizationRegression:
             plt.plot(x_ax, y_predict.iloc[:, i],
                      label='y_pred')  # y_predict is originally a series object
             plt.title('{type}: {y_name}'.format(type=model_type, y_name=Y_original.columns[i]))
-            plt.xlabel('datapoint_number')
+            plt.xlabel('DATAPOINT_NUMBER')
             plt.ylabel(Y_original.columns[i])
             plt.legend()
             plt.show()
