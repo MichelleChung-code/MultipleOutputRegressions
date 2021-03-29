@@ -203,6 +203,7 @@ class RunRegression:
         """
         row, num_outputs = y_predict.shape
         x_ax = range(len(self.X))
+        cur_path = str(Path(__file__).parents[0])
 
         for i in range(num_outputs):
             if not one_plot:
@@ -220,6 +221,9 @@ class RunRegression:
                 plt.legend()
                 plt.xlabel('datapoint_number')
                 plt.ylabel(self.Y.columns[i])
+                plt.savefig(os.path.join(cur_path, 'crystallization_example/results/{}_{}_follow_fit.png'.format(self.model_type,
+                                                                                                      self.Y.columns[
+                                                                                                          i])))
                 plt.show()
 
         if one_plot:
@@ -229,7 +233,7 @@ class RunRegression:
 
     def plot_model_individual_series(self, y_predict):
         """
-        Plot original x-values against original y-values and newly predicted y-values.  
+        Plot original x-values against original y-values and newly predicted y-values.
 
         Args:
             y_predict:
