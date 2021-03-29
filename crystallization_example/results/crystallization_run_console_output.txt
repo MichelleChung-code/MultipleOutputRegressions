@@ -7,7 +7,7 @@ Dep. Variable:                  YIELD   R-squared:                       0.242
 Model:                            OLS   Adj. R-squared:                 -0.213
 Method:                 Least Squares   F-statistic:                    0.5318
 Date:                Sun, 28 Mar 2021   Prob (F-statistic):              0.680
-Time:                        22:56:42   Log-Likelihood:                -43.953
+Time:                        22:57:40   Log-Likelihood:                -43.953
 No. Observations:                   9   AIC:                             95.91
 Df Residuals:                       5   BIC:                             96.70
 Df Model:                           3                                         
@@ -37,7 +37,7 @@ Dep. Variable:            GROWTH_RATE   R-squared:                       0.519
 Model:                            OLS   Adj. R-squared:                  0.230
 Method:                 Least Squares   F-statistic:                     1.796
 Date:                Sun, 28 Mar 2021   Prob (F-statistic):              0.264
-Time:                        22:56:42   Log-Likelihood:                 154.70
+Time:                        22:57:41   Log-Likelihood:                 154.70
 No. Observations:                   9   AIC:                            -301.4
 Df Residuals:                       5   BIC:                            -300.6
 Df Model:                           3                                         
@@ -67,7 +67,7 @@ Dep. Variable:          MEAN_DIAMETER   R-squared:                       0.751
 Model:                            OLS   Adj. R-squared:                  0.602
 Method:                 Least Squares   F-statistic:                     5.037
 Date:                Sun, 28 Mar 2021   Prob (F-statistic):             0.0569
-Time:                        22:56:42   Log-Likelihood:                -35.551
+Time:                        22:57:41   Log-Likelihood:                -35.551
 No. Observations:                   9   AIC:                             79.10
 Df Residuals:                       5   BIC:                             79.89
 Df Model:                           3                                         
@@ -121,19 +121,19 @@ OPTIMAL CONDITIONS: ChainedMultiOutput_Linear
  ######################################## RANDOM FOREST ######################################## 
 
 RandomForestRegressor
-Mean Absolute Error, mean (std): 23.303 (8.299)
+Mean Absolute Error, mean (std): 23.536 (8.315)
 r^2: 0.839
-r^2 individual: [0.7153222305996483, 0.8947321075297278, 0.9057730790822474]
+r^2 individual: [0.7416278438448, 0.9030426473586428, 0.8729795487340999]
 Predicted y-series: 
-[[1.85664059e+02 6.98423460e-08 2.21918170e+02]
- [1.97957858e+02 7.06195810e-08 2.19161210e+02]
- [1.84435840e+02 5.86718240e-08 1.89724630e+02]
- [1.76883032e+02 7.74529260e-08 2.36698480e+02]
- [1.49165628e+02 7.01080910e-08 2.17340010e+02]
- [1.81841510e+02 5.14331180e-08 2.11983297e+02]
- [2.33369753e+02 7.77765690e-08 2.42872660e+02]
- [2.03147318e+02 8.05696110e-08 2.51762160e+02]
- [1.81282907e+02 7.15164550e-08 2.52785790e+02]]
+[[1.86484211e+02 7.00142720e-08 2.23049770e+02]
+ [2.07434042e+02 7.13107640e-08 2.21802840e+02]
+ [1.84710502e+02 5.97236880e-08 1.93652087e+02]
+ [1.73935054e+02 7.79132300e-08 2.36820810e+02]
+ [1.54491730e+02 7.22463730e-08 2.19464720e+02]
+ [1.84643439e+02 5.05336170e-08 2.12785720e+02]
+ [2.35235444e+02 7.69501770e-08 2.41738020e+02]
+ [2.05080603e+02 7.96340300e-08 2.49875683e+02]
+ [1.82292756e+02 6.90705970e-08 2.50364127e+02]]
 Additional Output:
 {'params': {'bootstrap': True,
             'ccp_alpha': 0.0,
@@ -156,9 +156,9 @@ Additional Output:
 OPTIMAL CONDITIONS: RandomForestRegressor
 {'GROWTH_RATE': {"conditions ['AGITATOR_SPEED', 'SEED_CRYSTAL_MASS']": [565.0,
                                                                         0.6000000000000001],
-                 'value': 8.056961100000006e-08},
+                 'value': 7.963403000000005e-08},
  'MEAN_DIAMETER': {"conditions ['AGITATOR_SPEED', 'SEED_CRYSTAL_MASS']": [565.0,
                                                                           1.2000000000000002],
-                   'value': 253.2247066709998},
+                   'value': 251.45633000499976},
  'YIELD': {"conditions ['AGITATOR_SPEED', 'SEED_CRYSTAL_MASS']": [565.0, 0.0],
-           'value': 233.36975299999983}}
+           'value': 235.23544399999992}}
