@@ -30,7 +30,7 @@ Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 [2] The condition number is large, 3.72e+03. This might indicate that there are
 strong multicollinearity or other numerical problems.
-test
+
                             OLS Regression Results                            
 ==============================================================================
 Dep. Variable:            GROWTH_RATE   R-squared:                       0.519

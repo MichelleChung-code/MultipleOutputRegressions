@@ -105,8 +105,6 @@ class CrystallizationRegression:
                                                                    X_original=self.X, Y_original=self.Y[y_col],
                                                                    y_predict=new_Y)
 
-            print('test')
-
             # genetic programming to get the analytical equation
             # function_set = ['add', 'sub', 'mul', 'div', 'cos', 'sin', 'neg', 'inv']
             # X.drop('const', axis=1, inplace=True)
