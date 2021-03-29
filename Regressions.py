@@ -137,6 +137,16 @@ class RunRegression:
         return {'params': model.get_params()}
 
     def plot_optimized_maximum(self, lb_ls, ub_ls, step_size_ls):
+        """
+        Run different combinations of inputs and predict the outputs using the current model.  Plots the results and
+        prints the optimal input conditions (resulting in the max output values)
+
+        Args:
+            lb_ls: <list> of lower bound values for each input
+            ub_ls: <list> of upper bound values for each input
+            step_size_ls: <list> of step size to run the combinations for, between lower and upper bound values, for
+            each input
+        """
         assert len(lb_ls) == len(ub_ls)  # lower and upper bound lists must have the same number of elements
         if not isinstance(self.Y, pd.DataFrame):
             raise NotImplemented  # todo implement this piece
@@ -189,6 +199,7 @@ class RunRegression:
 
         Args:
             y_predict: <np.Array> predicted y-series of the regression model
+            one_plot: <bool> if True plot all resulting y-series on one graph.  If False, plot all on individual graphs.
         """
         row, num_outputs = y_predict.shape
         x_ax = range(len(self.X))
@@ -217,6 +228,12 @@ class RunRegression:
             plt.show()
 
     def plot_model_individual_series(self, y_predict):
+        """
+        Plot original x-values against original y-values and newly predicted y-values.  
+
+        Args:
+            y_predict:
+        """
         row, num_outputs = y_predict.shape
         num_inputs = len(self.X.columns)
 
