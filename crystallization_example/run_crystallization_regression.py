@@ -4,6 +4,8 @@ import statsmodels.api as sm
 from sklearn.preprocessing import PolynomialFeatures
 from sympy import *
 import matplotlib.pyplot as plt
+from pathlib import Path
+import os
 
 # from gplearn.genetic import SymbolicRegressor
 
@@ -119,11 +121,13 @@ class CrystallizationRegression:
 
         num_outputs = len(y_predict.columns)
         x_ax = range(len(X_original))
+        cur_path = str(Path(__file__).parents[0])
 
         if not isinstance(Y_original, (pd.DataFrame, pd.Series)):  # todo allow for numpy array inputs as well
             raise NotImplemented
 
         for i in range(num_outputs):
+            plt.figure(figsize=(10, 8))
             plt.plot(x_ax, Y_original.iloc[:, i], label='y_actual')
             plt.plot(x_ax, y_predict.iloc[:, i],
                      label='y_pred')  # y_predict is originally a series object
@@ -131,6 +135,8 @@ class CrystallizationRegression:
             plt.xlabel('DATAPOINT_NUMBER')
             plt.ylabel(Y_original.columns[i])
             plt.legend()
+            plt.savefig(
+                os.path.join(cur_path, 'results/{}_{}_follow_fit.png'.format(model_type, Y_original.columns[i])))
             plt.show()
 
 

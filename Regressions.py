@@ -179,7 +179,7 @@ class RunRegression:
         pprint(optimal_vals_dict)
 
         for i in range(num_outputs):
-            fig = plt.figure()
+            fig = plt.figure(figsize=(10, 8))
             ax = plt.axes(projection='3d')
             p = ax.scatter3D(new_X_df.iloc[:, 0], new_X_df.iloc[:, 1], predicted_y[:, 1], c=predicted_y[:, 1],
                              cmap=plt.get_cmap('BuPu'))
@@ -187,7 +187,7 @@ class RunRegression:
             ax.set_ylabel(self.X.columns[1])
             ax.set_zlabel(self.Y.columns[i])
             ax.set_title('{}: {}'.format(self.model_type, self.Y.columns[i]))
-            fig.set_size_inches(12, 8)
+            # fig.set_size_inches(12, 8)
             fig.colorbar(p, ax=ax)
             plt.savefig(os.path.join(cur_path, 'crystallization_example/results/{}_{}.png'.format(self.model_type,
                                                                                                   self.Y.columns[i])))
@@ -206,6 +206,7 @@ class RunRegression:
         cur_path = str(Path(__file__).parents[0])
 
         for i in range(num_outputs):
+            plt.figure(figsize=(10, 8))
             if not one_plot:
                 if not isinstance(self.Y, pd.DataFrame):
                     raise NotImplemented  # todo implement this case
@@ -236,7 +237,7 @@ class RunRegression:
         Plot original x-values against original y-values and newly predicted y-values.
 
         Args:
-            y_predict:
+            y_predict: <pd.Data
         """
         row, num_outputs = y_predict.shape
         num_inputs = len(self.X.columns)
