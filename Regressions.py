@@ -18,8 +18,6 @@ import itertools
 import os
 from pathlib import Path
 
-__author__ = 'Michelle Aria Chung'
-
 # https://scikit-learn.org/stable/modules/multiclass.html#multiclass-and-multilabel-algorithms
 DirectMultiOutput = 'DirectMultiOutput'
 ChainedMultiOutput = 'ChainedMultiOutput'
@@ -265,9 +263,6 @@ class RunRegression:
         print('r^2: {:.3f}'.format(r_sq))
         print('r^2 individual: {}'.format(r_sq_indv_ls))
         print('Predicted y-series: \n{}'.format(y_predict[:10]))
-
-        # the below line only works for primative types
-        # print(json.dumps(additional_output, indent=4, sort_keys=True))
 
         if additional_output:
             print('Additional Output:')
