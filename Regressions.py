@@ -93,7 +93,8 @@ class RunRegression:
         dict_additional_output_type = {'LinearRegression': RunRegression.lin_reg_output,
                                        'KNeighborsRegressor': RunRegression.get_params_output,
                                        'RandomForestRegressor': RunRegression.get_params_output,
-                                       'DecisionTreeRegressor': RunRegression.get_params_output}
+                                       'DecisionTreeRegressor': RunRegression.get_params_output,
+                                       ChainedMultiOutput + '_Linear': RunRegression.chained_lin_reg_output}
 
         if isinstance(self.Y, pd.DataFrame):
             r_sq_indv_ls = [r2_score(self.Y.iloc[:, i], y_predict[:, i]) for i in range(len(self.Y.columns))]
@@ -106,6 +107,20 @@ class RunRegression:
             additional_output = additional_output(model)
 
         return r_sq, r_sq_indv_ls, y_predict, additional_output
+
+    @staticmethod
+    def chained_lin_reg_output(model):
+        """
+        Get the weights and y-intercept of the linear regression chained model
+
+        Args:
+            model: <sklearn.multioutput.RegressorChain> fitted linear regression chained model
+
+        Returns:
+            <dict> containing the resulting weights and intercept
+        """
+        return {'weights': [model.estimators_[x].coef_ for x in range(len(model.estimators_))],
+                'intercept': [model.estimators_[x].intercept_ for x in range(len(model.estimators_))]}
 
     @staticmethod
     def lin_reg_output(model):
