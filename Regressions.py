@@ -18,8 +18,6 @@ import itertools
 import os
 from pathlib import Path
 
-__author__ = 'Michelle Aria Chung'
-
 # https://scikit-learn.org/stable/modules/multiclass.html#multiclass-and-multilabel-algorithms
 DirectMultiOutput = 'DirectMultiOutput'
 ChainedMultiOutput = 'ChainedMultiOutput'
@@ -95,7 +93,8 @@ class RunRegression:
         dict_additional_output_type = {'LinearRegression': RunRegression.lin_reg_output,
                                        'KNeighborsRegressor': RunRegression.get_params_output,
                                        'RandomForestRegressor': RunRegression.get_params_output,
-                                       'DecisionTreeRegressor': RunRegression.get_params_output}
+                                       'DecisionTreeRegressor': RunRegression.get_params_output,
+                                       ChainedMultiOutput + '_Linear': RunRegression.chained_lin_reg_output}
 
         if isinstance(self.Y, pd.DataFrame):
             r_sq_indv_ls = [r2_score(self.Y.iloc[:, i], y_predict[:, i]) for i in range(len(self.Y.columns))]
@@ -108,6 +107,20 @@ class RunRegression:
             additional_output = additional_output(model)
 
         return r_sq, r_sq_indv_ls, y_predict, additional_output
+
+    @staticmethod
+    def chained_lin_reg_output(model):
+        """
+        Get the weights and y-intercept of the linear regression chained model
+
+        Args:
+            model: <sklearn.multioutput.RegressorChain> fitted linear regression chained model
+
+        Returns:
+            <dict> containing the resulting weights and intercept
+        """
+        return {'weights': [model.estimators_[x].coef_ for x in range(len(model.estimators_))],
+                'intercept': [model.estimators_[x].intercept_ for x in range(len(model.estimators_))]}
 
     @staticmethod
     def lin_reg_output(model):
@@ -265,9 +278,6 @@ class RunRegression:
         print('r^2: {:.3f}'.format(r_sq))
         print('r^2 individual: {}'.format(r_sq_indv_ls))
         print('Predicted y-series: \n{}'.format(y_predict[:10]))
-
-        # the below line only works for primative types
-        # print(json.dumps(additional_output, indent=4, sort_keys=True))
 
         if additional_output:
             print('Additional Output:')
