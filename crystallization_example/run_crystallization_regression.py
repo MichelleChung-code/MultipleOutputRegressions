@@ -16,6 +16,8 @@ GROWTH_RATE = 'GROWTH_RATE'
 MEAN_DIAMETER = 'MEAN_DIAMETER'
 CRYSTALLIZER_POWER = 'CRYSTALLIZER_POWER'
 
+__author__ = 'Michelle Aria Chung'
+
 class CrystallizationRegression:
     def __init__(self, input_data_path):
         """
