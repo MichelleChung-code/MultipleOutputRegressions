@@ -18,8 +18,6 @@ import itertools
 import os
 from pathlib import Path
 
-__author__ = 'Michelle Aria Chung'
-
 # https://scikit-learn.org/stable/modules/multiclass.html#multiclass-and-multilabel-algorithms
 DirectMultiOutput = 'DirectMultiOutput'
 ChainedMultiOutput = 'ChainedMultiOutput'
