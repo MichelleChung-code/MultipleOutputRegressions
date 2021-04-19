@@ -101,7 +101,7 @@ class RunRegression:
         if isinstance(self.Y, pd.DataFrame):
             r_sq_indv_ls = [r2_score(self.Y.iloc[:, i], y_predict[:, i]) for i in range(len(self.Y.columns))]
         else:
-            r_sq_indv_ls = [r2_score(self.Y[:, i], y_predict[:, i]) for i in range(len(self.Y.columns))]
+            r_sq_indv_ls = [r2_score(self.Y[:, i], y_predict[:, i]) for i in range(len(self.Y[0]))]
 
         additional_output = dict_additional_output_type.get(self.model_type, False)
 
@@ -222,9 +222,9 @@ class RunRegression:
 
         for i in range(num_outputs):
             plt.figure(figsize=(10, 8))
-            if not one_plot:
-                if not isinstance(self.Y, pd.DataFrame):
-                    raise NotImplemented  # todo implement this case
+            # if not one_plot:
+            #     if not isinstance(self.Y, pd.DataFrame):
+            #         raise NotImplemented  # todo implement this case
 
             if isinstance(self.Y, pd.DataFrame):
                 plt.plot(x_ax, np.array(self.Y.iloc[:, i]), label='y_actual')
@@ -233,10 +233,11 @@ class RunRegression:
             plt.plot(x_ax, y_predict[:, i], label='y_pred')
 
             if not one_plot:
-                plt.title('{}: {}'.format(self.model_type, self.Y.columns[i]))
+                if isinstance(self.Y, pd.DataFrame):
+                    plt.title('{}: {}'.format(self.model_type, self.Y.columns[i]))
+                    plt.ylabel(self.Y.columns[i])
                 plt.legend()
                 plt.xlabel('DATAPOINT_NUMBER')
-                plt.ylabel(self.Y.columns[i])
 
                 if self.output_path:
                     plt.savefig(os.path.join(self.output_path, '{}_{}_follow_fit.png'.format(self.model_type,
