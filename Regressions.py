@@ -33,7 +33,7 @@ warnings.filterwarnings('ignore', category=ConvergenceWarning)
 
 
 class RunRegression:
-    def __init__(self, X, Y, model_type, plot_individual_bool=False, plot_summary_one_bool=False):
+    def __init__(self, X, Y, model_type, plot_individual_bool=False, plot_summary_one_bool=False, output_path=False):
         """
         Initiate the RunRegression class
 
@@ -44,6 +44,7 @@ class RunRegression:
             plot_individual_bool: <bool> whether to also plot the individual x vs y series
             plot_summary_one_bool: <bool> whether to plot the summary comparison chart on one graph or separate the
             different y-series into their own charts
+            output_path: <str> path to save output figure results to, if False results are not saved
         """
         self.X = X
         self.Y = Y
@@ -51,6 +52,7 @@ class RunRegression:
         self.model_type = model_type
         self.plot_individual_bool = plot_individual_bool
         self.plot_summary_one_bool = plot_summary_one_bool
+        self.output_path = output_path
 
         # check whether the type involves a multi-output wrapper
         multi_output_wrapper = model_type.split('_')[0]
@@ -174,7 +176,6 @@ class RunRegression:
         predicted_y = self.model.predict(new_X_df)
 
         row, num_outputs = self.model.predict(new_X_df).shape
-        cur_path = str(Path(__file__).parents[0])
         max_values = np.argmax(predicted_y, axis=0)
         optimal_vals_dict = {}
         for i in range(len(max_values)):
@@ -187,7 +188,7 @@ class RunRegression:
         full_runs_df = pd.concat([new_X_df, full_runs_df], axis=1)
 
         full_runs_df.to_csv(
-            os.path.join(cur_path, 'crystallization_example/results/{}_full_runs.csv'.format(self.model_type)))
+            os.path.join(self.output_path, '{}_full_runs.csv'.format(self.model_type)))
 
         pprint(optimal_vals_dict)
 
@@ -202,8 +203,8 @@ class RunRegression:
             ax.set_title('{}: {}'.format(self.model_type, self.Y.columns[i]))
             # fig.set_size_inches(12, 8)
             fig.colorbar(p, ax=ax)
-            plt.savefig(os.path.join(cur_path, 'crystallization_example/results/{}_{}.png'.format(self.model_type,
-                                                                                                  self.Y.columns[i])))
+            plt.savefig(os.path.join(self.output_path, '{}_{}.png'.format(self.model_type,
+                                                                          self.Y.columns[i])))
 
     def plot_model(self, y_predict, one_plot=True):
         """
@@ -216,7 +217,6 @@ class RunRegression:
         """
         row, num_outputs = y_predict.shape
         x_ax = range(len(self.X))
-        cur_path = str(Path(__file__).parents[0])
 
         for i in range(num_outputs):
             plt.figure(figsize=(10, 8))
@@ -235,9 +235,9 @@ class RunRegression:
                 plt.legend()
                 plt.xlabel('DATAPOINT_NUMBER')
                 plt.ylabel(self.Y.columns[i])
-                plt.savefig(os.path.join(cur_path, 'crystallization_example/results/{}_{}_follow_fit.png'.format(self.model_type,
-                                                                                                      self.Y.columns[
-                                                                                                          i])))
+                plt.savefig(os.path.join(self.output_path, '{}_{}_follow_fit.png'.format(self.model_type,
+                                                                                         self.Y.columns[
+                                                                                             i])))
                 plt.show()
 
         if one_plot:

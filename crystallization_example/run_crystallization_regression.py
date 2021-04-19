@@ -18,8 +18,9 @@ CRYSTALLIZER_POWER = 'CRYSTALLIZER_POWER'
 
 __author__ = 'Michelle Aria Chung'
 
+
 class CrystallizationRegression:
-    def __init__(self, input_data_path):
+    def __init__(self, input_data_path, output_path):
         """
         Class to run specific regression for the crystallization experiment
 
@@ -30,6 +31,7 @@ class CrystallizationRegression:
 
         self.X = self.input_data[[AGITATOR_SPEED, SEED_CRYSTAL_MASS]]
         self.Y = self.input_data[[YIELD, GROWTH_RATE, MEAN_DIAMETER]]
+        self.output_path = output_path
 
     def __call__(self):
         """
@@ -48,14 +50,14 @@ class CrystallizationRegression:
         print("\n", '#' * 40, 'LINEAR CHAINED', '#' * 40, "\n")
 
         crystallization_linear_chained = RunRegression(self.X, self.Y, 'ChainedMultiOutput_Linear',
-                                                       plot_individual_bool=True)
+                                                       plot_individual_bool=True, output_path=self.output_path)
         crystallization_linear_chained()
         crystallization_linear_chained.plot_optimized_maximum(lb_ls, ub_ls, step_size_ls)
 
         print("\n", '#' * 40, 'RANDOM FOREST', '#' * 40, "\n")
 
         crystallization_random_forest_regression = RunRegression(self.X, self.Y, 'RandomForestRegressor',
-                                                                 plot_individual_bool=True)
+                                                                 plot_individual_bool=True, output_path=self.output_path)
         crystallization_random_forest_regression()
         crystallization_random_forest_regression.plot_optimized_maximum(lb_ls, ub_ls, step_size_ls)
 
@@ -87,10 +89,10 @@ class CrystallizationRegression:
             new_Y = new_result.predict(X_final)
             CrystallizationRegression.plot_model_individual_series(model_type='LinearRegression_WithInteractions',
                                                                    X_original=self.X, Y_original=self.Y[y_col],
-                                                                   y_predict=new_Y)
+                                                                   y_predict=new_Y, output_path=self.output_path)
 
     @staticmethod
-    def plot_model_individual_series(model_type, X_original, Y_original, y_predict):
+    def plot_model_individual_series(model_type, X_original, Y_original, y_predict, output_path):
         """
         Plot individual charts to depict how closely the fitted y-series follows the actual data.
 
@@ -99,6 +101,7 @@ class CrystallizationRegression:
             X_original: <pd.DataFrame> original x-series
             Y_original: <pd.Series> original y-series
             y_predict: <pd.Series> model fitted y-series
+            output_path: <str> path to save figures to
         """
         # todo this is very similar to the Regression class version of plot_model, should make the Regression class one a static
         # method and then just use from there
@@ -108,7 +111,6 @@ class CrystallizationRegression:
 
         num_outputs = len(y_predict.columns)
         x_ax = range(len(X_original))
-        cur_path = str(Path(__file__).parents[0])
 
         if not isinstance(Y_original, (pd.DataFrame, pd.Series)):  # todo allow for numpy array inputs as well
             raise NotImplemented
@@ -123,7 +125,7 @@ class CrystallizationRegression:
             plt.ylabel(Y_original.columns[i])
             plt.legend()
             plt.savefig(
-                os.path.join(cur_path, 'results/{}_{}_follow_fit.png'.format(model_type, Y_original.columns[i])))
+                os.path.join(output_path, '{}_{}_follow_fit.png'.format(model_type, Y_original.columns[i])))
             plt.show()
 
 
@@ -131,11 +133,15 @@ if __name__ == '__main__':
     # write console output to text file
 
     cur_path = str(Path(__file__).parents[0])
-    console_out_path = os.path.join(cur_path, 'results/crystallization_run_console_output.txt')
+    res_path = os.path.join(cur_path, 'results')
+    if not os.path.exists(res_path):
+        os.makedirs(res_path)
+
+    console_out_path = os.path.join(res_path, 'crystallization_run_console_output.txt')
     sys.stdout = open(console_out_path, 'w')
 
     input_data_path = 'crystallization_input_data.csv'
-    x = CrystallizationRegression(input_data_path)
+    x = CrystallizationRegression(input_data_path, res_path)
     x()
 
     sys.stdout.close()
