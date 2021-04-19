@@ -187,8 +187,9 @@ class RunRegression:
         full_runs_df = pd.DataFrame(predicted_y, columns=self.Y.columns)
         full_runs_df = pd.concat([new_X_df, full_runs_df], axis=1)
 
-        full_runs_df.to_csv(
-            os.path.join(self.output_path, '{}_full_runs.csv'.format(self.model_type)))
+        if self.output_path:
+            full_runs_df.to_csv(
+                os.path.join(self.output_path, '{}_full_runs.csv'.format(self.model_type)))
 
         pprint(optimal_vals_dict)
 
@@ -203,8 +204,9 @@ class RunRegression:
             ax.set_title('{}: {}'.format(self.model_type, self.Y.columns[i]))
             # fig.set_size_inches(12, 8)
             fig.colorbar(p, ax=ax)
-            plt.savefig(os.path.join(self.output_path, '{}_{}.png'.format(self.model_type,
-                                                                          self.Y.columns[i])))
+
+            if self.output_path:
+                plt.savefig(os.path.join(self.output_path, '{}_{}.png'.format(self.model_type, self.Y.columns[i])))
 
     def plot_model(self, y_predict, one_plot=True):
         """
@@ -235,9 +237,11 @@ class RunRegression:
                 plt.legend()
                 plt.xlabel('DATAPOINT_NUMBER')
                 plt.ylabel(self.Y.columns[i])
-                plt.savefig(os.path.join(self.output_path, '{}_{}_follow_fit.png'.format(self.model_type,
-                                                                                         self.Y.columns[
-                                                                                             i])))
+
+                if self.output_path:
+                    plt.savefig(os.path.join(self.output_path, '{}_{}_follow_fit.png'.format(self.model_type,
+                                                                                             self.Y.columns[
+                                                                                                 i])))
                 plt.show()
 
         if one_plot:

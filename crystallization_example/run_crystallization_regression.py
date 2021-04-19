@@ -20,18 +20,21 @@ __author__ = 'Michelle Aria Chung'
 
 
 class CrystallizationRegression:
-    def __init__(self, input_data_path, output_path):
+    def __init__(self, input_data_path, output_path=False):
         """
         Class to run specific regression for the crystallization experiment
 
         Args:
             input_data_path: <str> path to the input data csv
+            output_path: <str> path to write results.  If False, none are written
+
         """
         self.input_data = pd.read_csv(input_data_path)
 
         self.X = self.input_data[[AGITATOR_SPEED, SEED_CRYSTAL_MASS]]
         self.Y = self.input_data[[YIELD, GROWTH_RATE, MEAN_DIAMETER]]
         self.output_path = output_path
+
 
     def __call__(self):
         """
@@ -57,7 +60,8 @@ class CrystallizationRegression:
         print("\n", '#' * 40, 'RANDOM FOREST', '#' * 40, "\n")
 
         crystallization_random_forest_regression = RunRegression(self.X, self.Y, 'RandomForestRegressor',
-                                                                 plot_individual_bool=True, output_path=self.output_path)
+                                                                 plot_individual_bool=True,
+                                                                 output_path=self.output_path)
         crystallization_random_forest_regression()
         crystallization_random_forest_regression.plot_optimized_maximum(lb_ls, ub_ls, step_size_ls)
 
@@ -124,8 +128,10 @@ class CrystallizationRegression:
             plt.xlabel('DATAPOINT_NUMBER')
             plt.ylabel(Y_original.columns[i])
             plt.legend()
-            plt.savefig(
-                os.path.join(output_path, '{}_{}_follow_fit.png'.format(model_type, Y_original.columns[i])))
+
+            if output_path: # can be False
+                plt.savefig(
+                    os.path.join(output_path, '{}_{}_follow_fit.png'.format(model_type, Y_original.columns[i])))
             plt.show()
 
 
