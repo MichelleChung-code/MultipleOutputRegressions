@@ -1,16 +1,6 @@
 # modified from matplotlib documentation example
 # https://matplotlib.org/2.0.2/examples/axes_grid/demo_parasite_axes2.html
 
-"""
-Parasite axis demo
-
-The following code is an example of a parasite axis. It aims to show a user how
-to plot multiple different values onto one single plot. Notice how in this
-example, par1 and par2 are both calling twinx meaning both are tied directly to
-the x-axis. From there, each of those two axis can behave separately from the
-each other, meaning they can take on separate values from themselves as well as
-the x-axis.
-"""
 from mpl_toolkits.axes_grid1 import host_subplot
 import mpl_toolkits.axisartist as AA
 import matplotlib.pyplot as plt
@@ -50,14 +40,13 @@ p1, = host.plot(x_ax, input_data[YIELD], label=YIELD)
 p2, = par1.plot(x_ax, input_data[GROWTH_RATE], label=GROWTH_RATE)
 p3, = par2.plot(x_ax, input_data[MEAN_DIAMETER], label=MEAN_DIAMETER)
 
-# host.legend()
-
 host.axis["left"].label.set_color(p1.get_color())
 par1.axis["right"].label.set_color(p2.get_color())
 par1.axis['right'].toggle(ticklabels=True, label=True)
 par2.axis["right"].label.set_color(p3.get_color())
 plt.title('Random Forest Optimal Conditions for 565 rpm Agitation Rate')
 plt.draw()
+
 # approximated intersection point
 plt.axvline(x=0.5643, color='k')
 
